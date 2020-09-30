@@ -1,4 +1,4 @@
-# zgyd-h5
+# pickup-h5
 
 ## Project setup
 ```
