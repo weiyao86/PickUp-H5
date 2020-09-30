@@ -1,0 +1,172 @@
+.detail-wrap {
+    min-height: 100%;
+    min-width: 100%;
+    background-color: $theme-gray-bg;
+
+
+
+    /deep/ .van-checkbox__icon {
+        width: 60px;
+
+        .van-icon {
+            width: 40px;
+            height: 40px;
+        }
+
+        &--checked .van-icon {
+            background-color: $border-active-cls;
+            border-color: $border-active-cls;
+        }
+    }
+
+    .list {
+        top: 0;
+        padding-bottom:200px;
+
+        .categroy-item {
+            background-color: #fff;
+            margin: 20px 0;
+            padding: 0 0 30px;
+
+            .inner-wrap {
+                .inner-item {
+                    display: flex;
+                    justify-content: center;
+                    align-items: stretch;
+                    padding: 22px 30px;
+
+                    .ck-wrap {
+                        align-self: center;
+
+                        .check {
+                            width: 60px;
+                        }
+                    }
+
+                    .title-wrap {
+                        width: 440px;
+                        min-height: 100px;
+                        line-height: 50px;
+                        margin-right: 10px;
+                        font-size: 26px;
+                        word-break: break-all;
+                        display: flex;
+                        align-items: center;
+
+                    }
+
+                    .text-wrap {
+                        flex: 1;
+                        display: flex;
+                        flex-flow: column;
+                        justify-content: center;
+                        align-items: center;
+                        box-shadow: -12px 0px 10px -10px #ccc;
+
+                        .title {
+                            font-size: 26px;
+                            min-height: 36px;
+                            line-height: 36px;
+                            font-weight: bold;
+                            word-break: break-all;
+                            text-align: center;
+
+                            .symbol {
+                                font-size: 24px;
+                            }
+                        }
+
+                        .spec-wrap {
+                            padding: 0 20px;
+                            color: #999;
+                            font-size: 24px;
+                            min-height: 40px;
+                            line-height: 46px;
+                        }
+
+                        .bottom-wrap {
+                            height: 50px;
+                            display: flex;
+                            justify-content: flex-end;
+                            align-items: flex-end;
+
+                            .price {
+                                color: $font-active-cls;
+                                font-size: 30px;
+                                font-weight: bold;
+
+                                .symbol {
+                                    font-size: 22px;
+                                }
+                            }
+
+                            .calc-num {
+                                font-size: 20px;
+
+                                .num {
+                                    padding-left: 10px;
+                                    font-size: 30px;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            .footer-total {
+                margin: 0 30px;
+                display: flex;
+                justify-content: flex-end;
+                align-items: flex-end;
+                min-width: 0;
+
+                .btn-item {
+                    color: $font-active-cls;
+                    border-color: $border-active-cls;
+                    font-size: 26px;
+                    height: 54px;
+                    width: 150px;
+                    padding: 0 15px;
+                    margin: 0 10px;
+                }
+            }
+        }
+
+        .last-item{
+            background: #fff;
+            text-align: right;
+            color: $font-active-cls;
+            font-size:24px;
+            padding:20px 30px;
+            .txt-item{
+                padding:10px;
+            }
+        }
+    }
+
+    .submit-btn {
+        .van-submit-bar__price {
+            color: $font-active-cls;
+        }
+
+        .van-button {
+            background: $border-active-cls;
+            border-color: $border-active-cls;
+            border-radius: 10px;
+        }
+        .text-price-wrap{
+            .price{
+                color:$font-active-cls;
+            }
+        }
+    }
+
+    /deep/ .van-empty__image{
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+        .van-icon{
+            color:#ccc;
+        }
+    }
+}
