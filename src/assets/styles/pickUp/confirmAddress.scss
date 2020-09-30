@@ -1,0 +1,54 @@
+.confirm-address-wrap {
+    min-height: 100%;
+    background: #f7f7f7;
+
+    .list {
+      
+        .address-info {
+            margin-top: 20px;
+
+            .cell-custom-item {
+                min-height: 120px;
+            }
+
+            /deep/ {
+                .van-field__label,
+                .van-cell__title {
+                    color: $text-color;
+                    font-size: 36px;
+                }
+
+                .van-field__control::placeholder {
+                    font-size: 36px;
+                }
+
+                .van-switch--on {
+                    background-color: $edit-buttons-bg;
+                }
+            }
+
+            .btns-wrap {
+                margin: 80px 50px;
+
+                .submit-btn {
+                    background-color: $edit-buttons-bg;
+                    border-color: $edit-buttons-bg;
+                    font-size: 30px;
+                    height: 90px;
+                    vertical-align: middle;
+                    border-radius: 20px;
+                }
+
+                .del-btn {
+                    background-color: #fff;
+                    border-color: #fff;
+                    border-radius: 20px;
+                    font-size: 30px;
+                    color: #333;
+                    height: 90px;
+                    margin-top: 20px;
+                }
+            }
+        }
+    }
+}
