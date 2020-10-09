@@ -1,17 +1,18 @@
 // vue.config.js
-const path = require('path');
+const path = require("path");
 const autoprefixer = require("autoprefixer"); // 开启gzip压缩， 按需引用
 const postcssPxtorem = require("postcss-pxtorem"); // 开启gzip压缩， 按需引用
 const CompressionWebpackPlugin = require("compression-webpack-plugin"); // 开启gzip压缩， 按需引用
 const productionGzipExtensions = /\.(js|css|json|txt|html|ico|svg)(\?.*)?$/i; // 开启gzip压缩， 按需写入
-const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin; // 打包分析
-const IS_PROD = ['production', 'prod'].includes(process.env.NODE_ENV);
-const resolve = (dir) => path.join(__dirname, dir);
+const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
+  .BundleAnalyzerPlugin; // 打包分析
+const IS_PROD = ["production", "prod"].includes(process.env.NODE_ENV);
+const resolve = dir => path.join(__dirname, dir);
 module.exports = {
-  publicPath: process.env.NODE_ENV === 'production' ? './' : '/', // 公共路径
-  indexPath: 'index.html', // 相对于打包路径index.html的路径
-  outputDir: process.env.outputDir || 'dist', // 'dist', 生产环境构建文件的目录
-  assetsDir: 'static', // 相对于outputDir的静态资源(js、css、img、fonts)目录
+  publicPath: process.env.NODE_ENV === "production" ? "./" : "/", // 公共路径
+  indexPath: "index.html", // 相对于打包路径index.html的路径
+  outputDir: process.env.outputDir || "dist", // 'dist', 生产环境构建文件的目录
+  assetsDir: "static", // 相对于outputDir的静态资源(js、css、img、fonts)目录
   lintOnSave: false, // 是否在开发环境下通过 eslint-loader 在每次保存时 lint 代码
   runtimeCompiler: true, // 是否使用包含运行时编译器的 Vue 构建版本
   productionSourceMap: !IS_PROD, // 生产环境的 source map
@@ -20,25 +21,25 @@ module.exports = {
   chainWebpack: config => {
     config.resolve.symlinks(true); // 修复热更新失效
     //es6 垫片
-    config.entry("main").add('babel-polyfill');
+    config.entry("main").add("babel-polyfill");
     // 如果使用多页面打包，使用vue inspect --plugins查看html是否在结果数组中
     config.plugin("html").tap(args => {
       // 修复 Lazy loading routes Error
       // args[0].chunksSortMode = "none";
-      args[0].chunksSortMode = function (chunk1, chunk2) {
-        var order = ['manifest', 'vendor', 'track', 'app'];  // 在此处进行配置文件顺序，加载顺序很重要
+      args[0].chunksSortMode = function(chunk1, chunk2) {
+        var order = ["manifest", "vendor", "track", "app"]; // 在此处进行配置文件顺序，加载顺序很重要
         var order1 = order.indexOf(chunk1.names[0]);
         var order2 = order.indexOf(chunk2.names[0]);
         return order1 - order2;
-      }
+      };
       return args;
     });
     config.resolve.alias // 添加别名
-      .set('@', resolve('src'))
-      .set('@assets', resolve('src/assets'))
-      .set('@components', resolve('src/components'))
-      .set('@views', resolve('src/views'))
-      .set('@store', resolve('src/store'));
+      .set("@", resolve("src"))
+      .set("@assets", resolve("src/assets"))
+      .set("@components", resolve("src/components"))
+      .set("@views", resolve("src/views"))
+      .set("@store", resolve("src/store"));
     // 压缩图片
     // 需要 npm i -D image-webpack-loader
     config.module
@@ -66,10 +67,24 @@ module.exports = {
       });
     // 打包分析, 打包之后自动生成一个名叫report.html文件(可忽视)
     if (IS_PROD) {
-      config.plugin("webpack-report").use(BundleAnalyzerPlugin, [{
-        analyzerMode: "static"
-      }]);
+      config.plugin("webpack-report").use(BundleAnalyzerPlugin, [
+        {
+          analyzerMode: "static"
+        }
+      ]);
     }
+    config.optimization.splitChunks({
+      chunks: "all",
+      cacheGroups: {
+        // cacheGroups 下可以可以配置多个组，每个组根据test设置条件，符合test条件的模块
+        vantUI: {
+          name: "chunk-vantUI", // 单独将 vantUI 拆包
+          priority: 1, // 数字大权重到，满足多个 cacheGroups 的条件时候分到权重高的
+          test: /[\\/]node_modules[\\/]_?vant(.*)/
+        }
+      }
+    });
+    config.optimization.runtimeChunk("single");
   },
   configureWebpack: config => {
     // 开启 gzip 压缩
@@ -96,12 +111,12 @@ module.exports = {
       less: {
         // `globalVars` 定义全局对象，可加入全局变量
         globalVars: {
-          primary: '#333'
+          primary: "#333"
         }
       },
 
       scss: {
-        prependData:`@import "@assets/styles/var.scss";@import "@assets/styles/mixin.scss";` //`@import "@assets/styles/var.scss";` //仅作为添加全局变量使用 path.resolve(__dirname, '@src/assets/styles/*.scss')
+        prependData: `@import "@assets/styles/var.scss";@import "@assets/styles/mixin.scss";` //`@import "@assets/styles/var.scss";` //仅作为添加全局变量使用 path.resolve(__dirname, '@src/assets/styles/*.scss')
       }
       //此处如配置则覆盖postcss.config.js中文件
       // postcss: {
@@ -116,9 +131,10 @@ module.exports = {
       // }
     }
   },
-  transpileDependencies:[/\bvue-awesome\b/],
+  transpileDependencies: [/\bvue-awesome\b/],
   devServer: {
-    overlay: { // 让浏览器 overlay 同时显示警告和错误
+    overlay: {
+      // 让浏览器 overlay 同时显示警告和错误
       warnings: true,
       errors: true
     },
@@ -128,9 +144,10 @@ module.exports = {
     open: false, //配置自动启动浏览器
     hotOnly: true, // 热更新
     // proxy: 'http://localhost:8080'   // 配置跨域处理,只有一个代理
-    proxy: { //配置多个跨域
+    proxy: {
+      //配置多个跨域
       "/api": {
-        target:"http://tihuoapi.xinyingtong.cn/",// "http://zgwjapi.xinyingtong.cn/",// "http://172.16.30.234/",http://zgwjapi.xinyingtong.cn
+        target: "http://tihuoapi.xinyingtong.cn/", // "http://zgwjapi.xinyingtong.cn/",// "http://172.16.30.234/",http://zgwjapi.xinyingtong.cn
         changeOrigin: true,
         // ws: true, //websocket支持
         secure: false,
@@ -139,6 +156,5 @@ module.exports = {
         }
       }
     }
-
   }
-}
+};
