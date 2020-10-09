@@ -74,7 +74,7 @@ export default {
     onChoose(item) {
       let me = this;
 
-      me.getAllPrice();
+      me.getAllPrice(item);
     },
 
     //获取选中
@@ -107,22 +107,26 @@ export default {
     onSelectRow(item) {
       let me = this;
       item["checked"] = !item["checked"];
-      me.getAllPrice();
+      me.getAllPrice(item);
     },
 
     //获取总价
-    getAllPrice() {
+    getAllPrice(item) {
       let me = this,
         data = { goods_num: me.getAllCkd() };
 
-      me.$http.post("/goods/getCartPrice", { data }).then(res => {
-        let data = res.data;
-        me.totalPrice = data.total_amount;
-        me.shippingAmount = data.shipping_amount;
+      me.$http
+        .post("/goods/getCartPrice", { data })
+        .then(res => {
+          let data = res.data;
+          me.totalPrice = data.total_amount;
+          me.shippingAmount = data.shipping_amount;
 
-        me.enabled =
-          me.totalPrice == 0 || me.totalPrice >= me.details.card.balance;
-      });
+          me.enabled = me.totalPrice == 0 || me.totalPrice >= me.details.card;
+        })
+        .catch(err => {
+          item && (item["checked"] = false);
+        });
     },
 
     //delete
