@@ -28,8 +28,8 @@
       </div>
     </section>
 
-    <van-submit-bar :price="totalPrice*100" button-text="立即下单" :disabled="canSubmit()" @submit="onSubmit" class="submit-btn" safe-area-inset-bottom>
-      <div class="text-price-wrap">卡余额: <span class="price">{{details.card && details.card.balance || 0}}</span></div>
+    <van-submit-bar :price="totalPrice*100" button-text="立即下单" :disabled="enabled" @submit="onSubmit" class="submit-btn" safe-area-inset-bottom>
+      <div class="text-price-wrap">余额: <span class="price">{{details.card && details.card.balance || 0}}</span></div>
     </van-submit-bar>
   </div>
 </template>

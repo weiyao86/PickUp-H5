@@ -6,6 +6,7 @@ export default {
     return {
       queryParams: {},
       details: {},
+      enabled: true,
       totalPrice: 0, //总价
       shippingAmount: 0 //运费
     };
@@ -64,7 +65,7 @@ export default {
 
       me.$http.get("/goods/goodsCart", { params }).then(res => {
         me.details = res.data || {};
-        
+
         me.redirectByStatus(res.status);
       });
     },
@@ -102,16 +103,6 @@ export default {
       });
     },
 
-    //是否可下单
-    canSubmit() {
-      let me = this,
-        data = me.getAllCkd();
-      if (!Object.keys(data).length) {
-        return true;
-      }
-      return false;
-    },
-
     //选择行
     onSelectRow(item) {
       let me = this;
@@ -128,6 +119,9 @@ export default {
         let data = res.data;
         me.totalPrice = data.total_amount;
         me.shippingAmount = data.shipping_amount;
+
+        me.enabled =
+          me.totalPrice == 0 || me.totalPrice >= me.details.card.balance;
       });
     },
 
@@ -150,7 +144,11 @@ export default {
               type: "success",
               message: res.msg,
               onClose() {
-                me.getDetail();
+                me.details.goods.forEach((res, idx) => {
+                  if (res.id == item.id) {
+                    me.details.goods.splice(idx, 1);
+                  }
+                });
                 me.getAllPrice();
               }
             });

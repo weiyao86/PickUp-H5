@@ -6,8 +6,8 @@ import Cache from "./localStorage";
  * @type {Object}
  */
 
-const URL_IDX = process.env.NODE_ENV == "production" ? 0 : 1;
-const URL_OPTS = ["http://tihuoapi.xinyingtong.cn/","http://172.16.30.234/","http://tihuoapi.xinyingtong.cn/"];
+const URL_IDX = process.env.NODE_ENV == "production" ? 0 : 0;
+const URL_OPTS = ["http://tihuoapi.xinyingtong.cn/","http://172.16.30.234/"];
 
 const config = {
   baseURL: URL_OPTS[URL_IDX],
@@ -154,6 +154,7 @@ let http = {
     Object.prototype.toString.apply(obj) == "[object Object]";
   },
 
+  
   baseUrl: URL_OPTS[0],
 
   axios: function(options) {

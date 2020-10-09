@@ -24,7 +24,13 @@ module.exports = {
     // 如果使用多页面打包，使用vue inspect --plugins查看html是否在结果数组中
     config.plugin("html").tap(args => {
       // 修复 Lazy loading routes Error
-      args[0].chunksSortMode = "none";
+      // args[0].chunksSortMode = "none";
+      args[0].chunksSortMode = function (chunk1, chunk2) {
+        var order = ['manifest', 'vendor', 'track', 'app'];  // 在此处进行配置文件顺序，加载顺序很重要
+        var order1 = order.indexOf(chunk1.names[0]);
+        var order2 = order.indexOf(chunk2.names[0]);
+        return order1 - order2;
+      }
       return args;
     });
     config.resolve.alias // 添加别名

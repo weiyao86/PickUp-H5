@@ -33,7 +33,7 @@ const routes = [
         name: "Detail",
         component: () => import("@views/pickUp/Detail"),
         meta: {
-          title: "提货单",
+          title: "职工自选提货单",
           isNavBar: true,
           index: 61
         }
@@ -140,6 +140,7 @@ router.beforeEach((to, from, next) => {
     window.__GlobalVue.$store.commit("removeCancelToken");
   }
 
+  
   //提货卡系统无需登录，仅微信授权
   if (Cache.getStorage("wechatAuth")) {
     next();
