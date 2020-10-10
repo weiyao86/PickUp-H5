@@ -64,22 +64,29 @@ body {
     }
 }
 
+img[src=''],
+img:not([src]) {
+    opacity: 0;
+}
+
 // override mescroll css
-.mescroll-empty{
+.mescroll-empty {
     min-height: 500px;
     display: flex;
     flex-flow: column;
     justify-content: center;
     align-items: center;
-    .empty-icon{
-        width:134px;
-        height:116px;
+
+    .empty-icon {
+        width: 134px;
+        height: 116px;
         overflow: hidden;
     }
-    .empty-tip{
+
+    .empty-tip {
         margin-top: 60px;
-        font-size:36px;
-        color:#666;
+        font-size: 36px;
+        color: #666;
     }
 }
 
@@ -106,6 +113,7 @@ body {
     transform: translateX(30px);
     opacity: 0;
 }
+
 //  页面过渡---end
 //  页面过渡2(未使用)---begin
 
@@ -149,6 +157,7 @@ $direction: "left",
     //     opacity: 0;
     // }
 }
+
 //  页面过渡---end
 
 // IOS 安全区域

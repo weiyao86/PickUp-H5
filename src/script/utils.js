@@ -11,6 +11,7 @@ import MescrollVue from "mescroll.js/mescroll.vue";
 
 export default {
   install(vue, options) {
+    let serverImgUrl = "http://tihuoapi.xinyingtong.cn/uploads";
     //ui 按需加载
     vue.use(VantCmp);
 
@@ -55,7 +56,7 @@ export default {
             },
             empty: {
               warpId: "empty_list",
-              icon: require("@assets/images/mescroll-no-result.png"),
+              icon: serverImgUrl + "/mescroll-no-result.png",
               tip: "暂无相关数据"
             }
           },
@@ -104,14 +105,14 @@ export default {
     let props = {};
     let commonCfg = Object.assign(
       {
-        emptyImg: require("@assets/images/mescroll-no-result.png")
+        emptyImg: serverImgUrl + "/mescroll-no-result.png"
       },
       Config,
       Methods,
       Cache,
       CommonHttp
     );
-    
+
     let cfg = Object.keys(commonCfg);
     cfg.forEach((key, val, obj) => {
       props["$" + key] = {
