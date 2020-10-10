@@ -56,7 +56,7 @@ export default {
             },
             empty: {
               warpId: "empty_list",
-              icon: "/images/mescroll-no-result.png",
+              icon: "images/mescroll-no-result.png",
               tip: "暂无相关数据"
             }
           },
@@ -105,7 +105,7 @@ export default {
     let props = {};
     let commonCfg = Object.assign(
       {
-        emptyImg: "/images/mescroll-no-result.png"
+        emptyImg: "images/mescroll-no-result.png"
       },
       Config,
       Methods,
