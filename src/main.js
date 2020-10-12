@@ -14,8 +14,12 @@ import '@assets/styles/global.scss';
 
 Vue.config.productionTip = false
 
-let FastClick = require('fastclick');
-FastClick.attach(document.body);
+//无需对IOS11及以上做处理
+const ua = navigator.userAgent.toLowerCase();
+const device  = ua.match(/cpu iphone os (.*?) like mac os/);
+if (!device || parseInt(device[1]) < 11) {
+  FastClick.attach(document.body);
+}
 //use common ui cmp
 Vue.use(VueWechatTitle);
 
