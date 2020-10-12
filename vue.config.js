@@ -60,10 +60,10 @@ module.exports = {
         },
         gifsicle: {
           interlaced: false
-        },
-        webp: {
-          quality: 75
         }
+        // webp: {
+        //   quality: 75
+        // }
       });
     // 打包分析, 打包之后自动生成一个名叫report.html文件(可忽视)
     if (IS_PROD) {
