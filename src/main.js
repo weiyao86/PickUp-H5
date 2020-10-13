@@ -15,6 +15,8 @@ import '@assets/styles/global.scss';
 Vue.config.productionTip = false
 
 //无需对IOS11及以上做处理
+
+let FastClick = require('fastclick');
 const ua = navigator.userAgent.toLowerCase();
 const device  = ua.match(/cpu iphone os (.*?) like mac os/);
 if (!device || parseInt(device[1]) < 11) {

@@ -116,11 +116,16 @@
             .footer-total {
                 margin: 0 30px;
                 display: flex;
-                justify-content: flex-end;
+                justify-content: space-between;
                 align-items: flex-end;
                 min-width: 0;
-
+                .remark{
+                    flex:1;
+                    font-size:24px;
+                    color:#999;
+                }
                 .btn-item {
+                   
                     color: $font-active-cls;
                     border-color: $border-active-cls;
                     font-size: 26px;

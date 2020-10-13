@@ -14,6 +14,7 @@
             </div>
           </div>
           <div class="footer-total">
+             <span class="remark">备注: {{item.explain || "无"}}</span>
             <van-button class="btn-item" @click.stop="onDel(item)" plain>删除</van-button>
           </div>
         </li>
