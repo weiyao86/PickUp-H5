@@ -21,13 +21,13 @@ export default {
 </script>
 <style lang="scss" scoped>
 .footer-nav {
-  position: fixed;
+  position: static;
   bottom: 100px;
   left: 0;
   right: 0;
   top: auto;
   background: #fff;
-  height: 80px;
+  line-height: 80px;
   z-index: 10;
   display: flex;
   justify-content: space-between;
@@ -52,7 +52,7 @@ export default {
   .left {
     color: #fe8a02;
 
-     .van-icon{
+    .van-icon {
       color: #fe8a02;
     }
 
@@ -63,7 +63,7 @@ export default {
   }
   .right {
     color: #fe5502;
-    .van-icon{
+    .van-icon {
       color: #fe5502;
     }
     &:after {

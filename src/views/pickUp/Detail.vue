@@ -1,6 +1,6 @@
 <template>
   <div class="detail-wrap">
-    <section class="content-wrap list">
+    <section class="content-wrap list"  v-ios-fix-scroll>
       <ul id="empty_list" v-if="details.goods && details.goods.length">
         <li class="categroy-item" v-for="(item, idx) in details.goods" :key="idx"  @click="onSelectRow(item)">
           <div class="inner-wrap">
@@ -31,6 +31,9 @@
 
     <van-submit-bar :price="totalPrice*100" button-text="立即下单" :disabled="enabled" @submit="onSubmit" class="submit-btn" safe-area-inset-bottom>
       <div class="text-price-wrap">余额: <span class="price">{{details.card || 0}}</span></div>
+      <template #tip>
+        <side-nav></side-nav>
+      </template>
     </van-submit-bar>
   </div>
 </template>

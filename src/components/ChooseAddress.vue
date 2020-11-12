@@ -77,6 +77,7 @@ export default {
       me.$http.get("/area/getProvinceList").then((res) => {
         me.areaList = me.setCustData(res.data) || [];
         me.$nextTick((res) => {
+          me.$refs.areaWrap.scrollTop=0;
           typeof cb == "function" && cb();
         });
       });
@@ -92,6 +93,7 @@ export default {
       me.$http.get("/area/getProvinceList", { params }).then((res) => {
         me.areaList = me.setCustData(res.data) || [];
         me.$nextTick(() => {
+          me.$refs.areaWrap.scrollTop=0;
           typeof cb == "function" && cb();
         });
       });
@@ -100,14 +102,23 @@ export default {
     //导航操作
     onClickNav(item) {
       let me = this;
-      if (item.id == me.placeHolderTip.id || item.leaf) return;
-
       me.curNavItem = item;
 
-      if (item["level"] == 1) {
-        me.getProvince(me.scrollView);
+      if (item.id == me.placeHolderTip.id || item.leaf) {
+        //点击请选择
+        let idx = me.navList.length - 2;
+        if (idx < 0 || item.leaf) return;
+
+        //取出前导航父ID
+        let prevItem = me.navList[idx];
+
+        me.getChildArea({ id: prevItem.id }, () => me.scrollView(false));
       } else {
-        me.getChildArea(item, me.scrollView);
+        if (item["level"] == 1) {
+          me.getProvince(me.scrollView);
+        } else {
+          me.getChildArea({ id: item.parent_id }, me.scrollView);
+        }
       }
     },
 
@@ -118,10 +129,13 @@ export default {
       me.setCustData(me.areaList, item);
       me.setNavList(item);
       if (item.leaf) {
+        item.leaf && me.navList.pop();
+        me.curNavItem = item;
         me.lastAreaList = me.areaList;
         me.$emit("chooseAddressAfter", me.navList);
       } else {
         me.getChildArea(item);
+        me.curNavItem = me.placeHolderTip;
       }
     },
 
@@ -130,12 +144,20 @@ export default {
       let me = this,
         len = me.navList.length - 1,
         idx = me.getIdxByCompareLvl(item);
+
+      if (!me.existPlaceHolderTip()) {
+        me.navList.push(me.placeHolderTip);
+      }
       if (idx > -1) {
         me.navList.splice(idx, 1, item);
       } else {
         me.navList.splice(len, 0, item);
-        item.leaf && me.navList.pop();
       }
+    },
+
+    existPlaceHolderTip() {
+      let me = this;
+      return me.navList.some((item) => item.id == me.placeHolderTip.id);
     },
 
     //根据层级获取索引
@@ -165,14 +187,9 @@ export default {
 
     //设置导航
     setNavActive(item, idx) {
-      let me = this,
-        len = me.navList.length,
-        lastItem = me.navList[len - 1],
-        lastId = me.placeHolderTip.id,
-        validOne = lastItem.id == lastId && idx == len - 2,
-        validSecond = lastItem.id != lastId && idx == len - 1;
+      let me = this;
 
-      return validOne ? true : validSecond ? true : false;
+      return item.id == me.curNavItem.id;
     },
 
     //滚动到可见位置
@@ -226,6 +243,7 @@ export default {
     .nav-wrap {
       height: 90px;
       overflow-x: auto;
+      overflow-y: hidden;
       .navbar {
         height: inherit;
         background: #f8f8f8;
@@ -234,6 +252,9 @@ export default {
         min-width: 100%;
         white-space: nowrap;
         vertical-align: top;
+        li:last-child{
+          margin-right:54px;
+        }
         .nav-item {
           position: relative;
           display: inline-block;

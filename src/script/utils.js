@@ -6,6 +6,7 @@ import Config from "./config";
 import VantCmp from "./vantCmp";
 import "./awesome";
 import Icon from "vue-awesome/components/Icon";
+import Directive from "./directive";
 import NavBar from "@components/NavBar";
 import MescrollVue from "mescroll.js/mescroll.vue";
 
@@ -19,15 +20,11 @@ export default {
     // Vue.myGlobalMethod=(){}
 
     //定义全局指令
-    vue.directive("safe-area-inset-bottom", function(
-      el,
-      bind,
-      vnode,
-      oldVnode
-    ) {
-      el.classList.add("custom-safe-area-inset-bottom");
+    let dirt = Object.keys(Directive);
+    dirt.forEach((key, val, obj) => {
+      vue.directive(key, Directive[key]());
     });
-
+  
     //全局组件 Awesome
     vue.component("v-icon", Icon);
 

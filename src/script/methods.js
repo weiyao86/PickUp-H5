@@ -3,9 +3,8 @@ import store from "../store";
 
 let methods = {
   dateFormat(date, format) {
-    
-    date =date ? new Date(date) : new Date();
-    
+    date = date ? new Date(date) : new Date();
+
     if (!format) {
       format = "yyyy-MM-dd";
     }
@@ -54,23 +53,26 @@ let methods = {
     m = Math.pow(10, Math.max(r1, r2));
     return (num * m + num1 * m) / m;
   },
-  // 图片前缀
+  // 路由转换－图片前缀
   httpImage(imgSrc) {
     if (!imgSrc) {
       return "";
     }
 
-    if (!imgSrc.match(/http(s)?\:\/\//gi)) {
-      if (imgSrc.indexOf(".gif") > -1) {
-        imgSrc = "http://static.xinyingtong.cn/" + imgSrc;
-      } 
-        // else imgSrc = `https://static.xinyingtong.cn/${imgSrc}?x-oss-process=style/mobile`;
+    //能找到本地路由http则转换为router能识别的地址
+    if (imgSrc.match(/http(s)?\:\/\//gi)) {
+      let urls = imgSrc.match(/http.*\/wx(\/.*)/i);
+      
+      if (urls && urls.length > 1) {
+        imgSrc = urls[1] || imgSrc;
+      }
+    } else {
     }
 
     return imgSrc;
   },
 
-  decimalKeep(value,n=2) {
+  decimalKeep(value, n = 2) {
     value = Number(value);
     return value.toFixed(n);
   },
@@ -81,7 +83,7 @@ let methods = {
     return new Array(len - s.length + 1).join(charStr || "") + s;
   },
   getCountdown(opts) {
-    let me=this;
+    let me = this;
     let { begin, end, isShowDay = false, callback = null } = opts;
 
     let endTime = new Date(end).getTime(),
@@ -136,7 +138,7 @@ let methods = {
           m: "00",
           s: "00",
           ms: "00",
-          dateTime:dateTime,
+          dateTime: dateTime,
           isDone: true,
           timer: timer
         });
@@ -149,7 +151,7 @@ let methods = {
           m: m,
           s: s,
           ms: ms,
-          dateTime:dateTime,
+          dateTime: dateTime,
           isDone: false,
           timer: timer
         });
@@ -159,13 +161,14 @@ let methods = {
     }
   },
 
-    //同步调用返回[err,res]
-  getErrorAndSuccess(promise){
-    if(!promise || !promise.then){
-      return new Promise((resolve,reject)=>reject(new Error("requires promise as the param"))).catch(err=>[err,null]);
+  //同步调用返回[err,res]
+  getErrorAndSuccess(promise) {
+    if (!promise || !promise.then) {
+      return new Promise((resolve, reject) =>
+        reject(new Error("requires promise as the param"))
+      ).catch(err => [err, null]);
     }
-    return promise.then(res=>[null,res]).catch(err=>[err,null]);
-    
+    return promise.then(res => [null, res]).catch(err => [err, null]);
   },
 
   initLocation(cb) {
@@ -230,8 +233,28 @@ let methods = {
     });
   },
 
-  trim(str){
-    return (''+str).replace(/(\s*$)/g,'');
+  trim(str) {
+    return ("" + str).replace(/(\s*$)/g, "");
+  },
+  isWechat() {
+    return (
+      navigator.userAgent.toLowerCase().match(/MicroMessenger/i) ==
+      "micromessenger"
+    );
+  },
+
+  isAndroid() {
+    return /android/.test(navigator.userAgent.toLowerCase());
+  },
+  isIOS() {
+    return /ios|iphone|ipad|ipod/.test(navigator.userAgent.toLowerCase());
+  },
+
+  log(msg) {
+    let log = console && console.log;
+    if (log) {
+      log(msg);
+    }
   }
 };
-export default {utils:methods};
+export default { utils: methods };

@@ -1,4 +1,6 @@
 import { mapState } from "vuex";
+import SideNav from "@components/SideNav";
+
 export default {
   name: "PickUpDetail",
 
@@ -14,6 +16,9 @@ export default {
 
   computed: {
     ...mapState(["pickUpUserInfo"])
+  },
+  components: {
+    SideNav
   },
 
   created() {

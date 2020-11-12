@@ -21,7 +21,7 @@
 
     .list {
         top: 0;
-        padding-bottom:200px;
+        padding-bottom:240px;
 
         .categroy-item {
             background-color: #fff;
@@ -150,6 +150,9 @@
     }
 
     .submit-btn {
+        /deep/ .van-submit-bar__tip{
+            background: #fff;
+        }
         .van-submit-bar__price {
             color: $font-active-cls;
         }

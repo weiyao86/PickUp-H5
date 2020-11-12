@@ -6,7 +6,7 @@
     </keep-alive>
     </transition>
     <router-view v-if="!$route.meta.keepAlive" v-wechat-title="$route.meta.title"></router-view>
-     <side-nav v-if="$route.meta.isNavBar"></side-nav>
+     <!-- <side-nav v-if="$route.meta.isNavBar"></side-nav> -->
   </div>
 </template>
 <script>
