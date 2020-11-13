@@ -1,19 +1,28 @@
 <template>
-    <div>
-        <empty :type="1" :remark="remark"></empty>
-    </div>
+  <div>
+    <empty :type="1" :remark="remark"></empty>
+  </div>
 </template>
 <script>
 import Empty from "@components/Empty";
 export default {
-    name:'QrError',
-    components:{
-        Empty
-    },
-    data() {
+  name: "QrError",
+  components: {
+    Empty
+  },
+  data() {
     return {
-      remark: "访问错误</br>请检查二维码是否正确"
+      queryParams: {},
+      remark: "访问错误</br>"
     };
   },
-}
+  created() {
+    let me = this;
+    
+    me.queryParams = me.$route.query;
+    if (me.queryParams.msg) {
+      me.remark += me.queryParams.msg;
+    }
+  }
+};
 </script>

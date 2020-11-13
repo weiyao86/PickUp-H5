@@ -38,11 +38,11 @@ export default {
     //二维码错误  1
     //卡不可使用  2
     //卡过期   3
-    redirectByStatus(status) {
+    redirectByStatus(res) {
       let me = this,
         redirectUrl = "";
 
-      switch (+status) {
+      switch (+res.status) {
         case 3:
           redirectUrl = "/pickUp/cardExpire";
           break;
@@ -56,7 +56,10 @@ export default {
           break;
       }
       if (redirectUrl) {
-        me.$router.replace(redirectUrl);
+        me.$router.replace({
+          path: redirectUrl,
+          query: { msg: res.data || "" }
+        });
       }
     },
 
@@ -70,8 +73,8 @@ export default {
 
       me.$http.get("/goods/goodsCart", { params }).then(res => {
         me.details = res.data || {};
-
-        me.redirectByStatus(res.status);
+        //TODO:
+        me.redirectByStatus(res);
       });
     },
 
@@ -119,7 +122,7 @@ export default {
     getAllPrice(item) {
       let me = this,
         data = { goods_num: me.getAllCkd() };
-
+       
       me.$http
         .post("/goods/getCartPrice", { data })
         .then(res => {
@@ -127,7 +130,7 @@ export default {
           me.totalPrice = data.total_amount;
           me.shippingAmount = data.shipping_amount;
 
-          me.enabled = me.totalPrice == 0 || me.totalPrice >= me.details.card;
+          me.enabled = me.totalPrice == 0 || me.totalPrice > me.details.card;
         })
         .catch(err => {
           item && (item["checked"] = false);

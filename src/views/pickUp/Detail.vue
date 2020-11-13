@@ -6,7 +6,7 @@
           <div class="inner-wrap">
             <div class="inner-item">
               <div @click.stop class="ck-wrap"><van-checkbox class="check" v-model="item.checked" @click="onChoose(item)"></van-checkbox></div>
-              <div class="title-wrap">{{item.goods_name}}</div>
+              <div class="title-wrap">{{item.goods_name+'('+item.goods_serial_number+')'}}</div>
               <div class="text-wrap">
                 <p class="title"><span class="symbol">￥</span>{{item.goods_price}}</p>
                 <p class="spec-wrap">数量:{{item.goods_num}}</p>
