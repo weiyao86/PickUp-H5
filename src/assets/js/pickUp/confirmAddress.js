@@ -41,12 +41,13 @@ export default {
         addressList = me.addressList || [],
         data = {
           uid: me.queryParams.uid,
+          number:me.queryParams.number,
           goods_nums: me.goodsParams,
           user_name: me.name,
           mobile: me.tel,
           address: me.address + me.desc
         };
-
+      
       me.$http
         .post("/order/createOrder", { data })
         .then(res => {

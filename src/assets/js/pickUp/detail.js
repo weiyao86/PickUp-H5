@@ -102,6 +102,7 @@ export default {
         data = { goods_num: me.getAllCkd() },
         params = {
           uid: me.pickUpUserInfo.uid,
+          number:me.queryParams.number,
           p: JSON.stringify(data)
         };
 
