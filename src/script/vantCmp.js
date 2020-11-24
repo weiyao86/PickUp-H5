@@ -30,7 +30,9 @@ import {
   SwipeCell,
   Steps,
   Step,
-  Uploader
+  Uploader,
+  Collapse,
+  CollapseItem 
 } from "vant";
 
 // //vant ui cmp
@@ -67,7 +69,9 @@ export default {
       SwipeCell,
       Steps,
       Step,
-      Uploader
+      Uploader,
+      Collapse,
+      CollapseItem 
     ];
 
     Toast.setDefaultOptions({ duration: 2000,forbidClick:true });

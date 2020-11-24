@@ -287,7 +287,8 @@ let http = {
           // Cache.setStorage("lastFullPath", window.__GlobalVue.$route.fullPath);
           // window.__GlobalVue.$router.replace("/user/auth");
           //清除token缓存，刷新页面，统一由路由处理回跳页
-          Cache.rmStorage("userToken");
+          
+          Cache.rmStorage("wechatAuth");
           window.location.reload();
         });
     }

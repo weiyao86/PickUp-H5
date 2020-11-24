@@ -1,6 +1,6 @@
 <template>
   <div class="cart-detail-wrap">
-     <nav-bar></nav-bar>
+    <nav-bar></nav-bar>
     <section class="content-wrap list">
       <p class="card-title van-hairline--bottom">
         <span class="label">提货单</span><span class="card-no">{{ orderDetail.order_sn }}</span>
@@ -16,6 +16,27 @@
               </div>
             </div>
           </div>
+
+          <van-collapse  v-if="item.list && item.list.length" v-model="item.id" accordion class="view-child" :border="false">
+            <van-collapse-item title="" >
+              <template #title>
+                <div class="view-title">{{ item.goods_name }}--明细</div>
+              </template>
+              <ul class="child">
+                <li v-for="inner in item.list" :key="inner.id">
+                  <div class="inner-wrap">
+                    <div class="inner-item">
+                      <div class="title-wrap">{{ inner.goods_name }}</div>
+                      <div class="text-wrap">
+                        <p class="title"><span class="symbol">￥</span>{{ inner.goods_price }}</p>
+                        <p class="spec-wrap">数量:{{ inner.goods_num }}</p>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </van-collapse-item>
+          </van-collapse>
         </li>
         <li class="last-item van-hairline--bottom">
           <span class="txt-item">运费:</span><span class="txt-item">{{ orderDetail.shipping_amount }}</span>
@@ -32,7 +53,7 @@
       </div>
     </section>
     <div class="btns-wrap" v-safe-area-inset-bottom>
-      <van-button type="primary" size="large" class="submit-btn" @click="onSubmit" v-if="showBtn">{{btnText}}</van-button>
+      <van-button type="primary" size="large" class="submit-btn" @click="onSubmit" v-if="showBtn">{{ btnText }}</van-button>
     </div>
   </div>
 </template>
